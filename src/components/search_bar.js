@@ -33,11 +33,10 @@ class SearchBar extends Component {
     // "controlled field" = field whose value is set by the state
     //    value={this.set.xxx}
     return (
-      <div>
+      <div className='search-bar'>
         <input 
           value={this.state.term}
           onChange={event => this.setState({ term: event.target.value })} /> 
-        Value of input: {this.state.term}
       </div>
     )
     }
