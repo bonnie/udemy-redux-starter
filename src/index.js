@@ -1,9 +1,12 @@
-require('dotenv').config()
 import React from 'react'
 import ReactDOM from 'react-dom'
+import YTSearch from 'youtube-api-search'
 import SearchBar from './components/search_bar'
+import { YOUTUBE_API_KEY } from '../settings.js'
 
-const API_KEY = process.env.YOUTUBE_API_KEY
+YTSearch({ key: YOUTUBE_API_KEY, term: 'surfboards' }, function(data) {
+  console.log(data)
+})
 
 // create a new component
 // this component should produce some html
@@ -11,6 +14,8 @@ const API_KEY = process.env.YOUTUBE_API_KEY
 // Take component's generated HTML and put it in the DOM (on the page)
 // this is a class (factory), not an instance
 // to make an instance: <App></App> (or <App />)
+
+// "downward data flow": most parent component should be in charge of fetching information
 const App = () => {
   return (
     <div>
