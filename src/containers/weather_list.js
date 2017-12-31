@@ -10,15 +10,15 @@ class WeatherList extends Component {
     const pressures = cityData.list.map(weather => weather.main.pressure)
 
     const graphs = [
-      { data: temps, color: 'blue'},
-      { data: humiditys, color: 'purple'},
-      { data: pressures, color: 'green'}
+      { data: temps, color: 'blue', units: 'K'},
+      { data: pressures, color: 'green', units: 'hPa'},
+      { data: humiditys, color: 'purple', units: '%'},
     ]
 
     return (
       <tr key={name}>
         <td>{name}</td>
-        { graphs.map(graph => <GraphCell key={graph.color} data={graph.data} color={graph.color} />) }
+        { graphs.map(graph => <td key={graph.color}><GraphCell data={graph.data} color={graph.color} units={graph.units} /></td>) }
       </tr>
     )
   }
