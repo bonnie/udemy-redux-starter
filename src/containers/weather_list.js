@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Sparklines, SparklinesLine } from 'react-sparklines'
+import GraphCell from '../components/graph_cell'
 
 class WeatherList extends Component {
   renderWeather(cityData) {
@@ -9,24 +9,16 @@ class WeatherList extends Component {
     const humiditys = cityData.list.map(weather => weather.main.humidity)
     const pressures = cityData.list.map(weather => weather.main.pressure)
 
+    const graphs = [
+      { data: temps, color: 'blue'},
+      { data: humiditys, color: 'purple'},
+      { data: pressures, color: 'green'}
+    ]
+
     return (
       <tr key={name}>
         <td>{name}</td>
-        <td>
-          <Sparklines data={temps} height={120} width={180} min={240} max={300}>
-            <SparklinesLine color="blue" />
-          </Sparklines>
-        </td>
-        <td>
-          <Sparklines data={humiditys} height={120} width={180}>
-            <SparklinesLine color="purple" />
-          </Sparklines>
-        </td>
-        <td>
-          <Sparklines data={pressures} height={120} width={180}>
-            <SparklinesLine color="green" />
-          </Sparklines>
-        </td>
+        { graphs.map(graph => <GraphCell key={graph.color} data={graph.data} color={graph.color} />) }
       </tr>
     )
   }
