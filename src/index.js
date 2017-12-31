@@ -10,6 +10,9 @@ import reducers from './reducers';
 // middleware is between actions and reducers
 // can log the action, manipulate it, stop it, or just let it pass through
 // like a "gatekeeper"
+
+// by adding ReduxPromise here, the action gets the promise resolution when
+// the payload is a promise
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 
 ReactDOM.render(
