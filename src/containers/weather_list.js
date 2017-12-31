@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import GraphCell from '../components/graph_cell'
+// import GraphCell from '../components/graph_cell'
 import GoogleMap from '../components/google_map'
 
 class WeatherList extends Component {
@@ -20,7 +20,6 @@ class WeatherList extends Component {
     return (
       <tr key={name}>
         <td><GoogleMap lat={lat} lon={lon} /></td>
-        { graphs.map(graph => <td key={graph.color}><GraphCell data={graph.data} color={graph.color} units={graph.units} /></td>) }
       </tr>
     )
   }
