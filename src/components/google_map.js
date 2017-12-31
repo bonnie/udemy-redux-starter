@@ -1,15 +1,31 @@
 import React, { Component } from 'react'
-import { GoogleMapLoader, GoogleMap } from 'react-google-maps'
 // note: there's a package: react-google-maps that makes this easier... ostensibly. I couldn't get it working
 // even with the exact code from the tutorial. >_<
 
-export default (props) => {
-  return (
-    <GoogleMapLoader
-      containerElement= { <div style={{height: '100%'}} /> }
-      googleMapElement= {
-        <GoogleMap defaultZoom={12} defaultCenter={{lat: props.lat, lng: props.lon}} />
+// return (
+//   <GoogleMapLoader
+//     containerElement= { <div style={{height: '100%'}} /> }
+//     googleMapElement= {
+//       <GoogleMap defaultZoom={12} defaultCenter={{lat: props.lat, lng: props.lon}} />
+
+
+class GoogleMap extends Component {
+  componentDidMount() {
+    console.log('component did mount')
+    console.log(this.props)
+    new google.maps.Map(this.refs.map, {
+      zoom: 12,
+      center: {
+        lat: this.props.lat,
+        lng: this.props.lon
       }
-    /> 
-  )
+    })
+  }
+
+  render() {
+    // ref = reference (this.refs.map)
+    return <div ref="map" />
+  }
 }
+
+export default GoogleMap
