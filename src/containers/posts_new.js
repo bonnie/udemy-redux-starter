@@ -5,15 +5,19 @@ import { Field, reduxForm } from 'redux-form'
 class PostsNew extends Component {
   // field obj connects Field component to this jsx
   renderField(field) {
+    const { meta: { touched, error } } = field
+    const className = `form-group ${touched && error ? 'has-danger' : ''}`
     return (
-      <div className="form-group">
+      <div className={className}>
         <label>{field.label}</label>
         <input
           className="form-control"
           type={field.type}
           {...field.input} // sets up props like onChange, onFocus, etc
         />
-        {field.meta.error}
+        <div className="text-help">
+          {touched ? error: ''}
+        </div>
       </div>
     )
   }
@@ -59,6 +63,8 @@ class PostsNew extends Component {
 // values = object with user inputs for form
 function validate(values) {
   const errors = {}
+
+  // touched = field edited and then focus away
 
   if (!values.title) {
     errors.title = 'Enter a title'
