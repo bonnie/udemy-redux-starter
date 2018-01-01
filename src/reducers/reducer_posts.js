@@ -1,4 +1,4 @@
-import { FETCH_POSTS, FETCH_POST } from '../actions'
+import { FETCH_POSTS, FETCH_POST, DELETE_POST } from '../actions'
 import _ from 'lodash'
 
 export default function(state={}, action) {
@@ -8,9 +8,12 @@ export default function(state={}, action) {
     case FETCH_POST:
       // add to existing state; don't replace it
       const post = action.payload.data
-      
+
       // square braces = key interpolation
       return { ...state, [post.id]: post }
+    case DELETE_POST:
+      // return the state minus the deleted post
+      return _.omit(state, action.payload)
     default:
       return state
   }
