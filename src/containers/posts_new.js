@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form'
 
 class PostsNew extends Component {
@@ -17,11 +18,17 @@ class PostsNew extends Component {
     )
   }
   
-  
+  onSubmit(values) {
+    console.log(values)
+  }
+
   render() {
+    // handleSubmit handles redux-forms stuff
+    // if the form is ready to be submitted, then call callback
+    const { handleSubmit } = this.props
     return (
       <div>
-        <form>
+        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <Field
             label="Title" 
             type="text"
@@ -40,31 +47,39 @@ class PostsNew extends Component {
             name="content"
             component={this.renderField}
             />
+          <Link className="btn btn-secondary" to="/">Cancel</Link>
+          <button type="submit" className="btn btn-primary">Submit</button>
         </form>
       </div>
     )
   }
 }
 
-// for form validation, called automatically during lifecycle 
+// for form validation, called automatically during lifecycle
 // values = object with user inputs for form
 function validate(values) {
   const errors = {}
 
-  Object.keys(values).forEach(field => {
-    if (!values[field]) {
-      errors[field] = `Enter ${field}`
-    }
-  })
-
+  if (!values.title) {
+    errors.title = 'Enter a title'
+  }
+  
+  if (!values.categories) {
+    errors.categories = 'Enter categories'
+  }
+  
+  if (!values.content) {
+    errors.content = 'Enter some content'
+  }
+  
   // if we return an empty object, redux-form assumes no errors
   // any properties = validation failed, don't submit form
   return errors
 }
 
 const reduxFormOptions = {
-  form: 'PostsNewForm',
   validate,
+  form: 'PostsNewForm',
 }
 
 // reduxForm takes single argument: object of options
