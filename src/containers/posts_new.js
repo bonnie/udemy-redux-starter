@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form'
+import { connect } from 'react-redux'
+import { createPost } from '../actions'
 
 class PostsNew extends Component {
   // field obj connects Field component to this jsx
@@ -23,7 +25,14 @@ class PostsNew extends Component {
   }
   
   onSubmit(values) {
-    console.log(values)
+    
+    this.props.createPost(values, () => { 
+      // this callback gets sent to the action creator
+      
+      // this.props.history is managed by the router
+      // pushing to it is equivalent to a redirect
+      this.props.history.push('/')
+    })
   }
 
   render() {
@@ -89,4 +98,7 @@ const reduxFormOptions = {
 }
 
 // reduxForm takes single argument: object of options
-export default reduxForm(reduxFormOptions)(PostsNew)
+export default reduxForm(reduxFormOptions)
+(
+  connect(null, { createPost })(PostsNew)
+)

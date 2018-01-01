@@ -1,0 +1,4 @@
+/* Link component gets rendered as an a tag */
+form a {
+  margin-right: 5px;
+}
